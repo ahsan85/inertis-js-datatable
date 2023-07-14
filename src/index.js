@@ -1,0 +1,1 @@
+export { default as InertiaDataTable } from './InertiaDataTable.vue'
