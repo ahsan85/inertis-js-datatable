@@ -294,7 +294,6 @@ export default {
 
 <template>
   <div class="mx-auto">
-    <!-- Confirmation Model End -->
     <div v-if="records.data.length > 0">
       <div class="flex flex-col justify-end my-4 sm:flex-row">
         <div class="flex flex-row mb-1 sm:mb-0">
@@ -362,7 +361,9 @@ export default {
               style="background-color: #f8f8f8"
             >
               <div class="inline-flex">
-                <span>{{ colHeading(column) }}</span>
+                <slot :name="`heading-${column.key}`" :column="column">{{
+                  colHeading(column)
+                }}</slot>
 
                 <span
                   v-if="data_table.sortField == colKey(column)"
@@ -412,140 +413,129 @@ export default {
         </thead>
         <tbody class="text-sm font-normal text-gray-700">
           <tr v-for="record in records.data" :key="record.id" class="">
-            <td
-              v-for="column in columns"
-              :key="column"
-              class="px-1 py-4 border-b border-gray-200 whitespace-nowrap"
-            >
-              <span v-if="hasSlot('column-' + column.key)">
-                <slot :name="'column-' + column.key" :record="record"> </slot>
-              </span>
-              <span v-else-if="column['type'] == 'link'">
-                <span v-html="getVal(record, column)"> </span>
-              </span>
-              <span v-else>
-                {{ getVal(record, column) }}
-              </span>
-            </td>
-
-            <td class="px-2 py-4 border-b border-gray-200 whitespace-nowrap">
-              <div class="flex justify-center item-center">
-                <slot
-                  v-for="action in actions.filter(
-                    (s) => ['view', 'edit', 'delete'].includes(s) == false
-                  )"
-                  :name="'action-' + action"
-                  :record="record"
-                >
-                </slot>
-                <Link
-                  v-if="checkActions('view') && !hasSlot('action-view')"
-                  :href="route(`${_route}.show`, record.id)"
-                  class="mr-2 w-4 transform hover:text-purple-500 hover:scale-110"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+            <slot name="row" :record="record">
+              <td v-for="column in columns" :key="column" class="">
+                <slot :name="`column-${column.key}`" :record="record">
+                  <span
+                    class="px-1 py-4 border-b border-gray-200 whitespace-nowrap"
+                    >{{ getVal(record, column) }}</span
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    />
-                  </svg>
-                </Link>
-                <slot
-                  v-else-if="hasSlot('action-view')"
-                  name="action-view"
-                  :record="record"
-                >
                 </slot>
-                <Link
-                  v-if="checkActions('edit') && !hasSlot('action-edit')"
-                  :href="route(`${_route}.edit`, record.id)"
-                  method="get"
-                  class="w-4 mr-2 text-purple-600 transform hover:text-purple-600 hover:scale-110"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              </td>
+              <td class="px-2 py-4 border-b border-gray-200 whitespace-nowrap">
+                <div class="flex justify-center item-center">
+                  <slot
+                    v-for="action in actions.filter(
+                      (s) => ['view', 'edit', 'delete'].includes(s) == false
+                    )"
+                    :name="'action-' + action"
+                    :record="record"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                    />
-                  </svg>
-                </Link>
-                <slot
-                  v-else-if="hasSlot('action-edit')"
-                  name="action-edit"
-                  :record="record"
-                >
-                </slot>
-                <a
-                  v-if="checkActions('delete') && !hasSlot('action-delete')"
-                  @click="deleteRecord(record.id)"
-                  class="w-4 mr-2 text-red-500 transform cursor-pointer hover:text-red-600 hover:scale-110"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  </slot>
+                  <Link
+                    v-if="checkActions('view') && !hasSlot('action-view')"
+                    :href="route(`${_route}.show`, record.id)"
+                    class="mr-2 w-4 transform hover:text-purple-500 hover:scale-110"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </a>
-                <slot
-                  v-else-if="hasSlot('action-delete')"
-                  name="action-delete"
-                  :record="record"
-                >
-                </slot>
-              </div>
-            </td>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </Link>
+                  <slot
+                    v-else-if="hasSlot('action-view')"
+                    name="action-view"
+                    :record="record"
+                  >
+                  </slot>
+                  <Link
+                    v-if="checkActions('edit') && !hasSlot('action-edit')"
+                    :href="route(`${_route}.edit`, record.id)"
+                    method="get"
+                    class="w-4 mr-2 text-purple-600 transform hover:text-purple-600 hover:scale-110"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                      />
+                    </svg>
+                  </Link>
+                  <slot
+                    v-else-if="hasSlot('action-edit')"
+                    name="action-edit"
+                    :record="record"
+                  >
+                  </slot>
+                  <button
+                    v-if="checkActions('delete') && !hasSlot('action-delete')"
+                    @click="deleteRecord(record.id)"
+                    class="w-4 mr-2 text-red-500 transform cursor-pointer hover:text-red-600 hover:scale-110"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                  <slot
+                    v-else-if="hasSlot('action-delete')"
+                    name="action-delete"
+                    :record="record"
+                  >
+                  </slot>
+                </div>
+              </td>
+            </slot>
           </tr>
         </tbody>
       </table>
       <div>
-        <slot
-          v-if="hasSlot('pagination')"
-          name="pagination"
-          :links="records.links"
-        ></slot>
-        <pagination
-          v-else
-          class="mt-6"
-          :links="records.links"
-          @recordsPerPage="onPerPageChange"
-        />
+        <slot name="pagination" :links="records.links">
+          <pagination
+            class="mt-6"
+            :links="records.links"
+            @recordsPerPage="onPerPageChange"
+          />
+        </slot>
       </div>
     </div>
     <div v-else>
-      <div>
-        <slot v-if="hasSlot('empty')" name="empty"></slot>
-        <h2 v-else class="text-xl font-bold text-center py-4 text-gray-700">
+      <slot name="empty">
+        <h2 class="text-xl font-bold text-center py-4 text-gray-700">
           No Data Available
         </h2>
-      </div>
+      </slot>
     </div>
   </div>
 </template>
