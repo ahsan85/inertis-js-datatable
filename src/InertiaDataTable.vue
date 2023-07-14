@@ -7,14 +7,11 @@ import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 import Pagination from "@/Components/Pagination.vue";
 
-
 export default {
   components: {
     Head,
     Link,
     Pagination,
-
-
   },
 
   props: ["records", "columns", "_route", "actions"],
@@ -36,7 +33,6 @@ export default {
     });
 
     onUpdated(() => {
-
       if (usePage().props.value.flash) {
         createToast(usePage().props.value.flash.message, {
           type: usePage().props.value.flash.type,
@@ -298,8 +294,6 @@ export default {
 
 <template>
   <div class="mx-auto">
-
-
     <!-- Confirmation Model End -->
     <div v-if="records.data.length > 0">
       <div class="flex flex-col justify-end my-4 sm:flex-row">
@@ -532,7 +526,13 @@ export default {
         </tbody>
       </table>
       <div>
+        <slot
+          v-if="hasSlot('pagination')"
+          name="pagination"
+          :links="records.links"
+        ></slot>
         <pagination
+          v-else
           class="mt-6"
           :links="records.links"
           @recordsPerPage="onPerPageChange"
@@ -540,9 +540,12 @@ export default {
       </div>
     </div>
     <div v-else>
-      <h2 class="text-xl font-bold text-center py-4 text-gray-700">
-        No Data Available
-      </h2>
+      <div>
+        <slot v-if="hasSlot('empty')" name="empty"></slot>
+        <h2 v-else class="text-xl font-bold text-center py-4 text-gray-700">
+          No Data Available
+        </h2>
+      </div>
     </div>
   </div>
 </template>
