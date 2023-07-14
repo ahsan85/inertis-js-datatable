@@ -1,31 +1,54 @@
 
-# Your Vue.js Package Name
+# Inertia js datatable for Laravel
 
-[![npm version](https://img.shields.io/npm/v/your-package-name.svg)](https://www.npmjs.com/package/your-package-name)
+[![npm version](https://img.shields.io/npm/v/your-package-name.svg)](https://www.npmjs.com/package/@velitsol/inertia-vue-datatable)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A brief description of your Vue.js package and its purpose.
+This package  is written in vue 3 with the support of Inertia js for Laravel projects. 
+
+## Features
+- Global search
+- Sorting column
+- Pagination (support for Eloquent)
+
+## Compatibility
+   - Vue 3
+   - Inertia.js
+   - Tailwind CSS
+   - Laravel 9
+
+## Limitations
+  - Not responsive for mobile display
 
 ## Installation
 
 You can install the package via npm:
 
 ```bash
-npm install your-package-name
+npm install @velitsol/inertia-vue-datatable
 ```
 
 ## Usage
 
-Describe how to use your package and provide examples. You can include code snippets, explanations, and any relevant details to help users understand how to integrate your package into their Vue.js projects.
-
+#### Register in app.js 
+In your app.js file, you can register the component globally to make it available across your entire Vue.js application.
 ```javascript
-// Example code showcasing how to use your package
-import YourComponent from 'your-package-name';
+import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
 
-// Use the component in your Vue.js application
+createApp(App)
+  .component('InertiaDataTable', InertiaDataTable)
+  .mount('#app');
+```
+By registering the component globally, you can use it in any Vue component template without the need for importing it specifically.
+
+#### Register locally in a Vue component 
+If you prefer to register the component locally in a specific Vue component, you can do so as follows:
+```javascript
+import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
+
 export default {
   components: {
-    YourComponent,
+    InertiaDataTable,
   },
   // ...
 }
@@ -33,13 +56,16 @@ export default {
 
 ## Props
 
-If your package includes Vue components that accept props, list them here along with their types, default values, and a brief description.
 
-| Prop        | Type   | Default | Description                  |
-| ----------- | ------ | ------- | ---------------------------- |
-| `propName1` | `type` | `value` | Description of the prop 1    |
-| `propName2` | `type` | `value` | Description of the prop 2    |
-| ...         | ...    | ...     | ...                          |
+
+| Prop        | Type   | Default | Description                |
+| ----------- | ------ | ------- | ---------------------------|
+| `records` | `object` | `null` | Paginated response from Laravel    |
+| `columns` | `object` | `null` | Description of the prop 2    |
+| `actions` | `array` | `['view','edit','delete]` | Description of the prop 2    |
+| `_route` | `string` | `null` | Description of the prop 2    |
+
+
 
 ## Events
 
