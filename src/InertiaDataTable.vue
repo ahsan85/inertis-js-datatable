@@ -294,7 +294,6 @@ export default {
 
 <template>
   <div class="mx-auto">
-
     <div v-if="records.data.length > 0">
       <div class="flex flex-col justify-end my-4 sm:flex-row">
         <div class="flex flex-row mb-1 sm:mb-0">
@@ -415,12 +414,13 @@ export default {
         <tbody class="text-sm font-normal text-gray-700">
           <tr v-for="record in records.data" :key="record.id" class="">
             <slot name="row" :record="record">
-              <td v-for="column in columns" :key="column" class="">
+              <td
+                v-for="column in columns"
+                :key="column"
+                class="border-b border-gray-200 whitespace-nowrap"
+              >
                 <slot :name="`column-${column.key}`" :record="record">
-                  <span
-                    class="px-1 py-4 border-b border-gray-200 whitespace-nowrap"
-                    >{{ getVal(record, column) }}</span
-                  >
+                  <span class="px-1 py-4">{{ getVal(record, column) }}</span>
                 </slot>
               </td>
               <td class="px-2 py-4 border-b border-gray-200 whitespace-nowrap">
