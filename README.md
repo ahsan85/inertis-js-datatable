@@ -9,20 +9,24 @@ This package is written in vue 3 with the support of Inertia js for Laravel proj
 ## Features
 
 =======
+
 # Inertia js datatable for Laravel
 
 [![npm version](https://img.shields.io/npm/v/your-package-name.svg)](https://www.npmjs.com/package/@velitsol/inertia-vue-datatable)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This package  is written in vue 3 with the support of Inertia js for Laravel projects. 
+This package is written in vue 3 with the support of Inertia js for Laravel projects.
 
 ## Features
->>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
+
+> > > > > > > f9e0de2cdd34b7708731037216a443a83d1b440f
+
 - Global search
 - Sorting column
 - Pagination (support for Eloquent)
 
 ## Compatibility
+
 <<<<<<< HEAD
 
 - Vue 3
@@ -32,16 +36,16 @@ This package  is written in vue 3 with the support of Inertia js for Laravel pro
 
 ## Limitations
 
-- Not responsive for mobile display
-=======
-   - Vue 3
-   - Inertia.js
-   - Tailwind CSS
-   - Laravel 9
+- # Not responsive for mobile display
+  - Vue 3
+  - Inertia.js
+  - Tailwind CSS
+  - Laravel 9
 
 ## Limitations
-  - Not responsive for mobile display
->>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
+
+- Not responsive for mobile display
+  > > > > > > > f9e0de2cdd34b7708731037216a443a83d1b440f
 
 ## Installation
 
@@ -54,6 +58,7 @@ npm install @velitsol/inertia-vue-datatable
 ## Usage
 
 <<<<<<< HEAD
+
 #### Register in app.js
 
 In your app.js file, you can register the component globally to make it available across your entire Vue.js application.
@@ -70,10 +75,10 @@ By registering the component globally, you can use it in any Vue component templ
 
 If you prefer to register the component locally in a specific Vue component, you can do so as follows:
 
-```javascript
+````javascript
 import { InertiaDataTable } from "@velitsol/inertia-vue-datatable";
 =======
-#### Register in app.js 
+#### Register in app.js
 In your app.js file, you can register the component globally to make it available across your entire Vue.js application.
 ```javascript
 import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
@@ -81,11 +86,14 @@ import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
 createApp(App)
   .component('InertiaDataTable', InertiaDataTable)
   .mount('#app');
-```
+````
+
 By registering the component globally, you can use it in any Vue component template without the need for importing it specifically.
 
-#### Register locally in a Vue component 
+#### Register locally in a Vue component
+
 If you prefer to register the component locally in a specific Vue component, you can do so as follows:
+
 ```javascript
 import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
 >>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
@@ -101,26 +109,25 @@ export default {
 ## Props
 
 <<<<<<< HEAD
-| Prop      | Type     | Default                   | Description                        |
+| Prop | Type | Default | Description |
 | --------- | -------- | ------------------------- | ---------------------------------- |
-| `records` | `object` | `null`                    | Paginated response from Laravel    |
-| `columns` | `object` | `null`                    | Heading cloumns of table           |
-| `actions` | `array`  | `['view','edit','delete]` | Actions of table                   |
-| `_route`  | `string` | `null`                    | Route prop is required for actions |
+| `records` | `object` | `null` | Paginated response from Laravel |
+| `columns` | `object` | `null` | Heading cloumns of table |
+| `actions` | `array` | `['view','edit','delete]` | Actions of table |
+| `_route` | `string` | `null` | Route prop is required for actions |
 
 ## Slots
+
 =======
 
+| Prop      | Type     | Default                   | Description                     |
+| --------- | -------- | ------------------------- | ------------------------------- |
+| `records` | `object` | `null`                    | Paginated response from Laravel |
+| `columns` | `object` | `null`                    | Description of the prop 2       |
+| `actions` | `array`  | `['view','edit','delete]` | Description of the prop 2       |
+| `_route`  | `string` | `null`                    | Description of the prop 2       |
 
-| Prop        | Type   | Default | Description                |
-| ----------- | ------ | ------- | ---------------------------|
-| `records` | `object` | `null` | Paginated response from Laravel    |
-| `columns` | `object` | `null` | Description of the prop 2    |
-| `actions` | `array` | `['view','edit','delete]` | Description of the prop 2    |
-| `_route` | `string` | `null` | Description of the prop 2    |
-
-
->>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
+> > > > > > > f9e0de2cdd34b7708731037216a443a83d1b440f
 
 | Slot       | Return            | Description         |
 | ---------- | ----------------- | ------------------- |
@@ -168,6 +175,7 @@ export default {
         format: function (v) {
           return moment(v).format("MM/DD/YYYY h:mm:ss A");
         },
+      },
       {
         key: "published_app",
         heading: "Published App",
@@ -363,4 +371,5 @@ Explain how other developers can contribute to your project. Include guidelines 
 ---
 
 Feel free to modify this template based on your specific package's needs. Make sure to provide clear and concise instructions, examples, and documentation to help users effectively utilize your Vue.js package.
->>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
+
+> > > > > > > f9e0de2cdd34b7708731037216a443a83d1b440f
