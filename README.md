@@ -1,5 +1,6 @@
 # Inertia js datatable for Laravel
 
+<<<<<<< HEAD
 [![npm version](https://img.shields.io/npm/v/your-package-name.svg)](https://www.npmjs.com/package/@velitsol/inertia-vue-datatable)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -7,11 +8,22 @@ This package is written in vue 3 with the support of Inertia js for Laravel proj
 
 ## Features
 
+=======
+# Inertia js datatable for Laravel
+
+[![npm version](https://img.shields.io/npm/v/your-package-name.svg)](https://www.npmjs.com/package/@velitsol/inertia-vue-datatable)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+This package  is written in vue 3 with the support of Inertia js for Laravel projects. 
+
+## Features
+>>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
 - Global search
 - Sorting column
 - Pagination (support for Eloquent)
 
 ## Compatibility
+<<<<<<< HEAD
 
 - Vue 3
 - Inertia.js
@@ -21,6 +33,15 @@ This package is written in vue 3 with the support of Inertia js for Laravel proj
 ## Limitations
 
 - Not responsive for mobile display
+=======
+   - Vue 3
+   - Inertia.js
+   - Tailwind CSS
+   - Laravel 9
+
+## Limitations
+  - Not responsive for mobile display
+>>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
 
 ## Installation
 
@@ -32,6 +53,7 @@ npm install @velitsol/inertia-vue-datatable
 
 ## Usage
 
+<<<<<<< HEAD
 #### Register in app.js
 
 In your app.js file, you can register the component globally to make it available across your entire Vue.js application.
@@ -50,6 +72,23 @@ If you prefer to register the component locally in a specific Vue component, you
 
 ```javascript
 import { InertiaDataTable } from "@velitsol/inertia-vue-datatable";
+=======
+#### Register in app.js 
+In your app.js file, you can register the component globally to make it available across your entire Vue.js application.
+```javascript
+import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
+
+createApp(App)
+  .component('InertiaDataTable', InertiaDataTable)
+  .mount('#app');
+```
+By registering the component globally, you can use it in any Vue component template without the need for importing it specifically.
+
+#### Register locally in a Vue component 
+If you prefer to register the component locally in a specific Vue component, you can do so as follows:
+```javascript
+import { InertiaDataTable } from '@velitsol/inertia-vue-datatable';
+>>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
 
 export default {
   components: {
@@ -61,6 +100,7 @@ export default {
 
 ## Props
 
+<<<<<<< HEAD
 | Prop      | Type     | Default                   | Description                        |
 | --------- | -------- | ------------------------- | ---------------------------------- |
 | `records` | `object` | `null`                    | Paginated response from Laravel    |
@@ -69,6 +109,18 @@ export default {
 | `_route`  | `string` | `null`                    | Route prop is required for actions |
 
 ## Slots
+=======
+
+
+| Prop        | Type   | Default | Description                |
+| ----------- | ------ | ------- | ---------------------------|
+| `records` | `object` | `null` | Paginated response from Laravel    |
+| `columns` | `object` | `null` | Description of the prop 2    |
+| `actions` | `array` | `['view','edit','delete]` | Description of the prop 2    |
+| `_route` | `string` | `null` | Description of the prop 2    |
+
+
+>>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
 
 | Slot       | Return            | Description         |
 | ---------- | ----------------- | ------------------- |
@@ -301,3 +353,14 @@ If your package includes code or assets from other projects, provide proper attr
 ## Support
 
 If users encounter any issues or have questions, provide instructions on how they can reach out for support. This can be through a GitHub issue tracker, email, or any other communication channel.
+<<<<<<< HEAD
+=======
+
+## Contributing
+
+Explain how other developers can contribute to your project. Include guidelines for submitting bug reports, feature requests, and pull requests. You can also provide information on your code of conduct and any development practices you follow.
+
+---
+
+Feel free to modify this template based on your specific package's needs. Make sure to provide clear and concise instructions, examples, and documentation to help users effectively utilize your Vue.js package.
+>>>>>>> f9e0de2cdd34b7708731037216a443a83d1b440f
