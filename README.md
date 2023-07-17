@@ -93,7 +93,7 @@ export default {
   setup(props) {
 
     /**
-     *  key should database field name
+     *  key should database field name or column slot name
      *  heading is column heading in datatable
      *  sortable represents a column should sortable or not
      *  format callback : it returns single
@@ -191,7 +191,6 @@ export default {
               </span>
             </div>
           </template>
-
       </inertia-data-table>
 </template>
 
@@ -202,58 +201,6 @@ export default {
 #### Column slot
 
 ```javascript
-<script>
-import { reactive } from "vue";
-
-export default {
-
-  props: ["events"],
-  setup(props) {
-
-    /**
-     *  key should database field name
-     *  heading is column heading in datatable
-     *  sortable represents a column should sortable or not
-     *  format callback : it returns single
-     *  _record callback : it returns row
-     */
-    const dataTableColumns = reactive([
-     { key: "name", heading: "event", sortable: 1 },
-      {
-        key: "start_date",
-        heading: "start_date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      },
-      {
-        key: "end_date",
-        heading: "End Date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      {
-        key: "published_app",
-        heading: "Published App",
-        sortable: 1,
-      },
-      {
-        key: "published_web",
-        heading: "Published Web",
-        sortable: 0,
-      },
-    ]);
-
-    const changeStatus=(record)=>{
-      console.log(record)
-    }
-
-    return { dataTableColumns,changeStatus };
-  },
-};
-</script>
 
 <template>
      <inertia-data-table
@@ -268,81 +215,33 @@ export default {
              *  Description : You can add any icon with column heading.
              */
 
-            <template #column-published_web="{ record }">
-               <button @click="changeStatus(record)" >{{ record.published_web }}</button>
-            </template>
+
+          <template #column-published_web="{ record }">
+            <button
+              class="inline-flex items-center py-1 w-12 justify-center text-sm tracking-widest text-white transition duration-150 ease-in-out bg-primarysidebar border border-transparent rounded-md hover:bg-primaryhover active:bg-primaryselected focus:outline-none"
+              @click="someFunction(record)"
+            >
+              {{ record.published_web ? "Yes" : "No" }}
+            </button>
+          </template>
 
       </inertia-data-table>
 </template>
 
 ```
+
+![Column!](./examples/column-slot.png)
 
 #### Action slot
 
 ```javascript
-<script>
-import { reactive } from "vue";
-
-export default {
-
-  props: ["events"],
-  setup(props) {
-
-    /**
-     *  key should database field name
-     *  heading is column heading in datatable
-     *  sortable represents a column should sortable or not
-     *  format callback : it returns single
-     *  _record callback : it returns row
-     */
-    const dataTableColumns = reactive([
-     { key: "name", heading: "event", sortable: 1 },
-      {
-        key: "start_date",
-        heading: "start_date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      },
-      {
-        key: "end_date",
-        heading: "End Date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      {
-        key: "published_app",
-        heading: "Published App",
-        sortable: 1,
-      },
-      {
-        key: "published_web",
-        heading: "Published Web",
-        sortable: 0,
-      },
-    ]);
-
-    const changeStatus=(record)=>{
-      console.log(record)
-    }
-
-    const viewEventTickets=(record)=>{
-     console.log(record)
-    }
-
-    return { dataTableColumns,changeStatus ,viewEventTickets};
-  },
-};
-</script>
 
 <template>
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
           :_route="'events'"
-          :actions="['view', 'edit', 'delete','view_tickets']">
+          :actions="['view', 'edit', 'delete','tickets']">
 
              /**
              *  Syntax : #action-name
@@ -350,109 +249,79 @@ export default {
              *  Description : You can override default actions (view,edit,delete) or add new action
              */
 
-            <template #column-published_web="{ record }">
-               <button  @click="changeStatus(record)" >{{ record.published_web }}</button>
-            </template>
-
-            template #action-view_tickets="{ record }">
-               <button @click="viewEventTickets(record)" >Tickets</button>
-            </template>
+         <template #action-tickets="{ record }">
+            <Link
+              class="mr-2 transform hover:text-purple-500 hover:scale-110"
+              :href="route('event.tickets', record.id)"
+              method="get"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                />
+              </svg>
+            </Link>
+          </template>
 
       </inertia-data-table>
 </template>
 
 ```
 
-````
+![Action!](./examples/action-slot.png)
+
 #### Empty slot
 
 ```javascript
-<script>
-import { reactive } from "vue";
-
-export default {
-
-  props: ["events"],
-  setup(props) {
-
-    /**
-     *  key should database field name
-     *  heading is column heading in datatable
-     *  sortable represents a column should sortable or not
-     *  format callback : it returns single
-     *  _record callback : it returns row
-     */
-    const dataTableColumns = reactive([
-     { key: "name", heading: "event", sortable: 1 },
-      {
-        key: "start_date",
-        heading: "start_date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      },
-      {
-        key: "end_date",
-        heading: "End Date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      {
-        key: "published_app",
-        heading: "Published App",
-        sortable: 1,
-      },
-      {
-        key: "published_web",
-        heading: "Published Web",
-        sortable: 0,
-      },
-    ]);
-
-    const changeStatus=(record)=>{
-      console.log(record)
-    }
-
-    const viewEventTickets=(record)=>{
-     console.log(record)
-    }
-
-    return { dataTableColumns,changeStatus ,viewEventTickets};
-  },
-};
-</script>
-
 <template>
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
           :_route="'events'"
-          :actions="['view', 'edit', 'delete','view_tickets']">
+          :actions="['view', 'edit', 'delete']">
 
-             /**
-             *  Syntax : #action-name
-             *  Return : It returns record object
-             *  Description : You can override default actions (view,edit,delete) or add new action
-             */
-
-            <template #column-published_web="{ record }">
-               <button  @click="changeStatus(record)" >{{ record.published_web }}</button>
-            </template>
-
-            template #action-view_tickets="{ record }">
-               <button @click="viewEventTickets(record)" >Tickets</button>
-            </template>
-
-              template #empty>
-                <h3> No data available in table. </h3>
-            </template>
-
+          <template #empty>
+            <div class="">
+              <div class="flex justify-center">
+                <span class="text-gray-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-12 h-12"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="flex mt-3 justify-center">
+                <h3 class="text-lg font-semibold text-gray-500">
+                  No Data Available
+                </h3>
+              </div>
+            </div>
+          </template>
       </inertia-data-table>
 </template>
 
-````
+```
+
+![Action!](./examples/empty-slot.png)
 
 ## License
 
