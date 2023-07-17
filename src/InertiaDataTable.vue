@@ -14,7 +14,7 @@ export default {
     Pagination,
   },
 
-  props: ["records", "columns", "_route", "actions"],
+  props: ["records", "columns", "_route", "actions", "tableRowClass"],
 
   setup(props, { slots }) {
     const columns = props.columns;
@@ -412,7 +412,11 @@ export default {
           </tr>
         </thead>
         <tbody class="text-sm font-normal text-gray-700">
-          <tr v-for="record in records.data" :key="record.id" class="">
+          <tr
+            v-for="record in records.data"
+            :key="record.id"
+            :class="tableRowClass"
+          >
             <slot name="row" :record="record">
               <td
                 v-for="column in columns"

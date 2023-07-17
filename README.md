@@ -61,12 +61,13 @@ export default {
 
 ## Props
 
-| Prop      | Type     | Default                   | Description                        |
-| --------- | -------- | ------------------------- | ---------------------------------- |
-| `records` | `object` | `null`                    | Paginated response from Laravel    |
-| `columns` | `object` | `null`                    | Heading cloumns of table           |
-| `actions` | `array`  | `['view','edit','delete]` | Actions of table                   |
-| `_route`  | `string` | `null`                    | Route prop is required for actions |
+| Prop            | Type     | Default                   | Description                        |
+| --------------- | -------- | ------------------------- | ---------------------------------- |
+| `records`       | `object` | `null`                    | Paginated response from Laravel    |
+| `columns`       | `object` | `null`                    | Heading cloumns of table           |
+| `actions`       | `array`  | `['view','edit','delete]` | Actions of table                   |
+| `_route`        | `string` | `null`                    | Route prop is required for actions |
+| `tableRowClass` | `string` | `null`                    | Style row with Tailwind classes    |
 
 ## Slots
 
@@ -144,7 +145,7 @@ export default {
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
-          :_route="'events'"
+           _route="events"
           :actions="['view', 'edit', 'delete']">
       </inertia-data-table>
 </template>
@@ -161,7 +162,7 @@ export default {
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
-          :_route="'events'"
+          _route="events"
           :actions="['view', 'edit', 'delete']">
 
              /**
@@ -206,7 +207,7 @@ export default {
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
-          :_route="'events'"
+             _route="events"
           :actions="['view', 'edit', 'delete']">
 
              /**
@@ -240,7 +241,7 @@ export default {
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
-          :_route="'events'"
+             _route="events"
           :actions="['view', 'edit', 'delete','tickets']">
 
              /**
@@ -286,7 +287,7 @@ export default {
      <inertia-data-table
           :records="events"
           :columns="dataTableColumns"
-          :_route="'events'"
+             _route="events"
           :actions="['view', 'edit', 'delete']">
 
           <template #empty>
