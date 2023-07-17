@@ -294,7 +294,7 @@ export default {
 
 <template>
   <div class="mx-auto bg-white p-5">
-    <div v-if="records.data.length > 0">
+    <div>
       <div class="flex flex-col justify-end my-4 sm:flex-row">
         <div class="flex flex-row mb-1 sm:mb-0">
           <div class="relative mx-2">
@@ -411,7 +411,10 @@ export default {
             </th>
           </tr>
         </thead>
-        <tbody class="text-sm font-normal text-gray-700">
+        <tbody
+          v-if="records.data.length > 0"
+          class="text-sm font-normal text-gray-700"
+        >
           <tr
             v-for="record in records.data"
             :key="record.id"
@@ -525,21 +528,21 @@ export default {
           </tr>
         </tbody>
       </table>
-      <div>
-        <slot name="pagination" :links="records.links">
-          <pagination
-            class="mt-6"
-            :links="records.links"
-            @recordsPerPage="onPerPageChange"
-          />
-        </slot>
-      </div>
     </div>
-    <div v-else>
+    <div v-if="records.data.length == 0" class="my-10">
       <slot name="empty">
         <h2 class="text-xl font-bold text-center py-4 text-gray-700">
           No Data Available
         </h2>
+      </slot>
+    </div>
+    <div v-if="records.data.length > 0">
+      <slot name="pagination" :links="records.links">
+        <pagination
+          class="mt-6"
+          :links="records.links"
+          @recordsPerPage="onPerPageChange"
+        />
       </slot>
     </div>
   </div>
