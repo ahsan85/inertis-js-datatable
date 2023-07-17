@@ -156,7 +156,7 @@ export default {
   setup(props) {
 
     /**
-     *  key should database field name
+     *  key should database field name or column slot key name
      *  heading is column heading in datatable
      *  sortable represents a column should sortable or not
      *  format callback : it returns single
@@ -264,7 +264,11 @@ export default {
       },
     ]);
 
-    return { dataTableColumns };
+    const changeStatus=(record)=>{
+      console.log(record)
+    }
+
+    return { dataTableColumns,changeStatus };
   },
 };
 </script>
@@ -277,18 +281,196 @@ export default {
           :actions="['view', 'edit', 'delete']">
 
              /**
-             *  Syntax : #heading-column_key
-             *  Return : It returns column object
+             *  Syntax : #column-column_key
+             *  Return : It returns record object
              *  Description : You can add any icon with column heading.
              */
 
-            <template #heading-name="{ column }"> Event Name </template>
-            <template #heading-start_date="{ column }">  Event Start Date </template>
+            <template #column-published_web="{ record }">
+               <button @click="changeStatus(record)" >{{ record.published_web }}</button>
+            </template>
 
       </inertia-data-table>
 </template>
 
 ```
+
+#### Action slot
+
+```javascript
+<script>
+import { reactive } from "vue";
+
+export default {
+
+  props: ["events"],
+  setup(props) {
+
+    /**
+     *  key should database field name
+     *  heading is column heading in datatable
+     *  sortable represents a column should sortable or not
+     *  format callback : it returns single
+     *  _record callback : it returns row
+     */
+    const dataTableColumns = reactive([
+     { key: "name", heading: "event", sortable: 1 },
+      {
+        key: "start_date",
+        heading: "start_date",
+        sortable: 1,
+        format: function (v) {
+          return moment(v).format("MM/DD/YYYY h:mm:ss A");
+        },
+      },
+      {
+        key: "end_date",
+        heading: "End Date",
+        sortable: 1,
+        format: function (v) {
+          return moment(v).format("MM/DD/YYYY h:mm:ss A");
+        },
+      {
+        key: "published_app",
+        heading: "Published App",
+        sortable: 1,
+      },
+      {
+        key: "published_web",
+        heading: "Published Web",
+        sortable: 0,
+      },
+    ]);
+
+    const changeStatus=(record)=>{
+      console.log(record)
+    }
+
+    const viewEventTickets=(record)=>{
+     console.log(record)
+    }
+
+    return { dataTableColumns,changeStatus ,viewEventTickets};
+  },
+};
+</script>
+
+<template>
+     <inertia-data-table
+          :records="events"
+          :columns="dataTableColumns"
+          :_route="'events'"
+          :actions="['view', 'edit', 'delete','view_tickets']">
+
+             /**
+             *  Syntax : #action-name
+             *  Return : It returns record object
+             *  Description : You can override default actions (view,edit,delete) or add new action
+             */
+
+            <template #column-published_web="{ record }">
+               <button  @click="changeStatus(record)" >{{ record.published_web }}</button>
+            </template>
+
+            template #action-view_tickets="{ record }">
+               <button @click="viewEventTickets(record)" >Tickets</button>
+            </template>
+
+      </inertia-data-table>
+</template>
+
+```
+
+````
+#### Empty slot
+
+```javascript
+<script>
+import { reactive } from "vue";
+
+export default {
+
+  props: ["events"],
+  setup(props) {
+
+    /**
+     *  key should database field name
+     *  heading is column heading in datatable
+     *  sortable represents a column should sortable or not
+     *  format callback : it returns single
+     *  _record callback : it returns row
+     */
+    const dataTableColumns = reactive([
+     { key: "name", heading: "event", sortable: 1 },
+      {
+        key: "start_date",
+        heading: "start_date",
+        sortable: 1,
+        format: function (v) {
+          return moment(v).format("MM/DD/YYYY h:mm:ss A");
+        },
+      },
+      {
+        key: "end_date",
+        heading: "End Date",
+        sortable: 1,
+        format: function (v) {
+          return moment(v).format("MM/DD/YYYY h:mm:ss A");
+        },
+      {
+        key: "published_app",
+        heading: "Published App",
+        sortable: 1,
+      },
+      {
+        key: "published_web",
+        heading: "Published Web",
+        sortable: 0,
+      },
+    ]);
+
+    const changeStatus=(record)=>{
+      console.log(record)
+    }
+
+    const viewEventTickets=(record)=>{
+     console.log(record)
+    }
+
+    return { dataTableColumns,changeStatus ,viewEventTickets};
+  },
+};
+</script>
+
+<template>
+     <inertia-data-table
+          :records="events"
+          :columns="dataTableColumns"
+          :_route="'events'"
+          :actions="['view', 'edit', 'delete','view_tickets']">
+
+             /**
+             *  Syntax : #action-name
+             *  Return : It returns record object
+             *  Description : You can override default actions (view,edit,delete) or add new action
+             */
+
+            <template #column-published_web="{ record }">
+               <button  @click="changeStatus(record)" >{{ record.published_web }}</button>
+            </template>
+
+            template #action-view_tickets="{ record }">
+               <button @click="viewEventTickets(record)" >Tickets</button>
+            </template>
+
+              template #empty>
+                <h3> No data available in table. </h3>
+            </template>
+
+      </inertia-data-table>
+</template>
+
+````
 
 ## License
 

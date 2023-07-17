@@ -1,6 +1,6 @@
 {
   "name": "@velitsol/inertia-vue-datatable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Datatable in inertia JS",
   "main": "src/index.js",
   "author": "Muhammad Ahsan",
