@@ -99,11 +99,11 @@ export default {
      *  format callback : it returns single
      *  _record callback : it returns row
      */
-    const dataTableColumns = reactive([
-     { key: "name", heading: "event", sortable: 1 },
+ const dataTableColumns = reactive([
+      { key: "name", heading: "event", sortable: 1 },
       {
         key: "start_date",
-        heading: "start_date",
+        heading: "Start Date",
         sortable: 1,
         format: function (v) {
           return moment(v).format("MM/DD/YYYY h:mm:ss A");
@@ -116,15 +116,22 @@ export default {
         format: function (v) {
           return moment(v).format("MM/DD/YYYY h:mm:ss A");
         },
+      },
       {
         key: "published_app",
         heading: "Published App",
         sortable: 1,
+        format: function (v) {
+          return v === 1 ? "Yes" : "No";
+        },
       },
       {
         key: "published_web",
         heading: "Published Web",
         sortable: 0,
+        format: function (v) {
+          return v === 1 ? "Yes" : "No";
+        },
       },
     ]);
 
@@ -144,57 +151,11 @@ export default {
 
 ```
 
+![General!](./examples//general.png)
+
 #### Heading slot
 
 ```javascript
-<script>
-import { reactive } from "vue";
-
-export default {
-
-  props: ["events"],
-  setup(props) {
-
-    /**
-     *  key should database field name or column slot key name
-     *  heading is column heading in datatable
-     *  sortable represents a column should sortable or not
-     *  format callback : it returns single
-     *  _record callback : it returns row
-     */
-    const dataTableColumns = reactive([
-     { key: "name", heading: "event", sortable: 1 },
-      {
-        key: "start_date",
-        heading: "start_date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      },
-      {
-        key: "end_date",
-        heading: "End Date",
-        sortable: 1,
-        format: function (v) {
-          return moment(v).format("MM/DD/YYYY h:mm:ss A");
-        },
-      {
-        key: "published_app",
-        heading: "Published App",
-        sortable: 1,
-      },
-      {
-        key: "published_web",
-        heading: "Published Web",
-        sortable: 0,
-      },
-    ]);
-
-    return { dataTableColumns };
-  },
-};
-</script>
 
 <template>
      <inertia-data-table

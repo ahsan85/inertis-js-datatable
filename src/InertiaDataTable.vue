@@ -293,7 +293,7 @@ export default {
 
 
 <template>
-  <div class="mx-auto">
+  <div class="mx-auto bg-white p-5">
     <div v-if="records.data.length > 0">
       <div class="flex flex-col justify-end my-4 sm:flex-row">
         <div class="flex flex-row mb-1 sm:mb-0">
