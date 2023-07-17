@@ -5,7 +5,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
-import Pagination from "@/Components/Pagination.vue";
+import Pagination from "./Pagination.vue";
 
 export default {
   components: {
@@ -537,13 +537,12 @@ export default {
       </slot>
     </div>
     <div v-if="records.data.length > 0">
-      <slot name="pagination" :links="records.links">
-        <pagination
-          class="mt-6"
-          :links="records.links"
-          @recordsPerPage="onPerPageChange"
-        />
-      </slot>
+      <pagination
+        class="mt-6"
+        :links="records.links"
+        @recordsPerPage="onPerPageChange"
+      />
+      <slot name="pagination" :links="records.links"> </slot>
     </div>
   </div>
 </template>
