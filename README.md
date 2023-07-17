@@ -146,7 +146,6 @@ export default {
           :columns="dataTableColumns"
           :_route="'events'"
           :actions="['view', 'edit', 'delete']">
-          <template #heading-start_date="{ column }">  Event Start Date </template>
       </inertia-data-table>
 </template>
 
